@@ -17,12 +17,12 @@ int main(int argc, char** argv){
   bool acummulate = false;
 
   cap.open(0);
-
+  
   if(!cap.isOpened()){
     cout << "cameras indisponiveis";
     return -1;
   }
-
+  
   width  = cap.get(CV_CAP_PROP_FRAME_WIDTH);
   height = cap.get(CV_CAP_PROP_FRAME_HEIGHT);
 
@@ -37,13 +37,6 @@ int main(int argc, char** argv){
   while(1){
     cap >> image;
     split (image, planes);
-
-    equalizeHist(planes[0], planes[0]);
-    equalizeHist(planes[1], planes[1]);
-    equalizeHist(planes[2], planes[2]);    
-     
-    merge(planes, image); 
-
     calcHist(&planes[0], 1, 0, Mat(), histR, 1,
              &nbins, &histrange,
              uniform, acummulate);
@@ -54,16 +47,14 @@ int main(int argc, char** argv){
              &nbins, &histrange,
              uniform, acummulate);
 
-    
-
     normalize(histR, histR, 0, histImgR.rows, NORM_MINMAX, -1, Mat());
     normalize(histG, histG, 0, histImgG.rows, NORM_MINMAX, -1, Mat());
     normalize(histB, histB, 0, histImgB.rows, NORM_MINMAX, -1, Mat());
-    
+
     histImgR.setTo(Scalar(0));
     histImgG.setTo(Scalar(0));
     histImgB.setTo(Scalar(0));
-
+    
     for(int i=0; i<nbins; i++){
       line(histImgR,
            Point(i, histh),
@@ -78,7 +69,6 @@ int main(int argc, char** argv){
            Point(i, histh-cvRound(histB.at<float>(i))),
            Scalar(255, 0, 0), 1, 8, 0);
     }
-
     histImgR.copyTo(image(Rect(0, 0       ,nbins, histh)));
     histImgG.copyTo(image(Rect(0, histh   ,nbins, histh)));
     histImgB.copyTo(image(Rect(0, 2*histh ,nbins, histh)));

@@ -9,20 +9,21 @@ int main(int argc, char** argv){
   int width, height;
   VideoCapture cap;
   vector<Mat> planes;
-  Mat histR, histG, histB;
-  int nbins = 64;
+  Mat histR, histG, histB, histS, histS1;
+  int nbins = 64, count_frames = 99999999;
   float range[] = {0, 256};
+  double flag;
   const float *histrange = { range };
   bool uniform = true;
   bool acummulate = false;
 
   cap.open(0);
-
+  
   if(!cap.isOpened()){
     cout << "cameras indisponiveis";
     return -1;
   }
-
+  
   width  = cap.get(CV_CAP_PROP_FRAME_WIDTH);
   height = cap.get(CV_CAP_PROP_FRAME_HEIGHT);
 
@@ -33,16 +34,16 @@ int main(int argc, char** argv){
   Mat histImgR(histh, histw, CV_8UC3, Scalar(0,0,0));
   Mat histImgG(histh, histw, CV_8UC3, Scalar(0,0,0));
   Mat histImgB(histh, histw, CV_8UC3, Scalar(0,0,0));
+  Mat histImgS(histh, histw, CV_8UC3, Scalar(0,0,0));
 
   while(1){
     cap >> image;
     split (image, planes);
-
-    equalizeHist(planes[0], planes[0]);
-    equalizeHist(planes[1], planes[1]);
-    equalizeHist(planes[2], planes[2]);    
-     
-    merge(planes, image); 
+    if(count_frames > 30)
+    {
+        count_frames = 0;
+        calcHist(&planes[0], 1, 0, Mat(), histS, 1, &nbins, &histrange, uniform, acummulate);
+    }
 
     calcHist(&planes[0], 1, 0, Mat(), histR, 1,
              &nbins, &histrange,
@@ -54,16 +55,23 @@ int main(int argc, char** argv){
              &nbins, &histrange,
              uniform, acummulate);
 
-    
-
     normalize(histR, histR, 0, histImgR.rows, NORM_MINMAX, -1, Mat());
     normalize(histG, histG, 0, histImgG.rows, NORM_MINMAX, -1, Mat());
     normalize(histB, histB, 0, histImgB.rows, NORM_MINMAX, -1, Mat());
+     
+    calcHist(&planes[0], 1, 0, Mat(), histS1, 1, &nbins, &histrange, uniform, acummulate);
+    flag = compareHist(histS1, histS, CV_COMP_CORREL);
+
     
+    if( flag < 0.80 )
+    {
+    cout << "Alarme com flag > "<< flag << endl;
+    }
+
     histImgR.setTo(Scalar(0));
     histImgG.setTo(Scalar(0));
     histImgB.setTo(Scalar(0));
-
+    
     for(int i=0; i<nbins; i++){
       line(histImgR,
            Point(i, histh),
@@ -78,10 +86,11 @@ int main(int argc, char** argv){
            Point(i, histh-cvRound(histB.at<float>(i))),
            Scalar(255, 0, 0), 1, 8, 0);
     }
-
+    
     histImgR.copyTo(image(Rect(0, 0       ,nbins, histh)));
     histImgG.copyTo(image(Rect(0, histh   ,nbins, histh)));
     histImgB.copyTo(image(Rect(0, 2*histh ,nbins, histh)));
+    count_frames++;
     imshow("image", image);
     if(waitKey(30) >= 0) break;
   }
