@@ -5,4 +5,4 @@
 ##### Codigo desenvolvido pelo aluno em exercicios com base nos exemplos apresentados
 
 
-![alt text](https://github.com/mcarujo/mcarujo.github.io/blob/master/figs/bolhas.png)
+![useful image](https://github.com/mcarujo/mcarujo.github.io/blob/master/figs/bolhas.png)
