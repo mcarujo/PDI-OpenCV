@@ -4,4 +4,4 @@
 ###### https://github.com/agostinhobritojr/agostinhobritojr.github.io.git
 ##### Codigo desenvolvido pelo aluno em exercicios com base nos exemplos apresentados
 
-[[https://github.com/mcarujo/mcarujo.github.io/blob/master/figs/bolhas.png]]
+[https://github.com/mcarujo/mcarujo.github.io/blob/master/figs/bolhas.png]
