@@ -10,4 +10,4 @@ XXXX
 
 XXXX
 
-[![exe2](https://github.com/mcarujo/mcarujo.github.io/blob/master/figs/pixels.jpg)](https://github.com/mcarujo/mcarujo.github.io/blob/master/figs/pixels.jpg)
+[![exe2](https://raw.githubusercontent.com/mcarujo/mcarujo.github.io/master/figs/pixels.jpg)](https://github.com/mcarujo/mcarujo.github.io/blob/master/figs/pixels.jpg)
