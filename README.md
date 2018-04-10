@@ -6,7 +6,8 @@
 ## Exercícios 2
 #### Utilizando o programa exemplos/pixels.cpp como referência,implementamos um programa regios.cpp o qual solicita ao usuário as cordenadas de 2 pontos da maneira mostrada na figura. Os mesmos localizados dentro dos limites do tamanho da imagem. Após isso, a região definida pelo retângulo de vértices opostos definidos pelos pontos será exibida com o negativo da imagem na região correspondente. O efeito é ilustrado na Figura Abaixo. 
 
-```
+O bloco abaixo está pegando cada pixel dentro da área informada, para subtrair 255 e efetuar o módulo. 
+```c++
 for (int i = px_start; i < px_finish; i++)
   {
     for (int j = py_start; j < py_finish; j++)
@@ -15,7 +16,7 @@ for (int i = px_start; i < px_finish; i++)
     }
 }
 ```
-
+Entrada deve está dentro do limite da imagem.
 
 [![exe2](https://raw.githubusercontent.com/mcarujo/mcarujo.github.io/master/exercicios/2/entrada_regions.png)](https://github.com/mcarujo/mcarujo.github.io/blob/master/exercicios/2/entrada_regions.png)
 
