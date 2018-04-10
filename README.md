@@ -53,7 +53,7 @@ Aopós a equalização notamos o hisograma fica com tons mais espalhados e com u
 [![exe2](https://raw.githubusercontent.com/mcarujo/mcarujo.github.io/master/exercicios/4/com_equalizar.png)](https://github.com/mcarujo/mcarujo.github.io/blob/master/exercicios/4/com_equalizar.png)
 
 O processo da equalização é feito antes de ser calculado os histogramas e ser mostrado a imagem capturada pela câmera, assim que obtivemos a imagem fazemos a equalização da mesma.
-```
+```c++
  cap >> image;
     split (image, planes);
 
@@ -68,7 +68,7 @@ O processo da equalização é feito antes de ser calculado os histogramas e ser
 
 o programa faz uma amostragem de 30 frames para capturar o seu frame de referência para comprar se houve mudança brusca no cenrio da câmera ou não.
 
-```
+```c++
 if(count_frames > 30)
     {
         count_frames = 0;
@@ -76,7 +76,7 @@ if(count_frames > 30)
     }
 ```
 Esse histograma calculado é atualizado a cada 30 frames, e serve de comparação para o histograma em tempo real, e caso seja dectadada alguma diferença alta, será imprimido no terminal o alerta, o valor limitar para determinaço de que houve alteração do cenrio foi determinado por Heurística.
-```
+```c++
    if( flag < 0.80 )
     {
     cout << "Alarme com flag > "<< flag << endl;
