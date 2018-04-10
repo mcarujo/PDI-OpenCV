@@ -400,5 +400,5 @@ E nessa imagem temos o resultado obtido ao definir a casa mais próxima ao lago 
 
 O programa se dá através da leitura de um arquivo de vídeo e criação de um arquivo de vídeo para escrita do novo vídeo
 
-[![Everything Is AWESOME](https://drive.google.com/file/d/19VVWhfAtaLQ7WLqTNZjD8gj-sghNeujD/view?usp=sharing)](https://youtu.be/uaCtl8rblro "Everything Is AWESOME")
+[![Everything Is AWESOME](https://github.com/mcarujo/mcarujo.github.io/blob/master/exercicios/6/Parte%202/Entrada.png)](https://youtu.be/uaCtl8rblro "Everything Is AWESOME")
 
