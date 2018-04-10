@@ -20,7 +20,76 @@ Entrada deve está dentro do limite da imagem.
 
 [![exe2](https://raw.githubusercontent.com/mcarujo/mcarujo.github.io/master/exercicios/2/entrada_regions.png)](https://github.com/mcarujo/mcarujo.github.io/blob/master/exercicios/2/entrada_regions.png)
 
-Após serem repassado os 2 pontos na entrada, temos uma saída como:
+Segue abaixo a implementação completa do programa *regions.cpp*:
+
+````c++
+#include <math.h>
+#include <iostream>
+#include <opencv2/opencv.hpp>
+
+using namespace cv;
+using namespace std;
+
+int main(int, char **)
+{
+  int p1x, p1y;
+  int p2x, p2y;
+
+  Mat image;
+
+  image = imread("biel.png", CV_LOAD_IMAGE_GRAYSCALE);
+  if (!image.data)
+    cout << "nao abriu a imagem.png" << endl;
+
+  cout << "Porfavor me informa o ponto 1 x e y :";
+  cout << "\n";
+  cin >> p1x >> p1y;
+  cout << "Porfavor me informa o ponto 2 x e y :";
+  cout << "\n";
+  cin >> p2x >> p2y;
+  int px_start, px_finish;
+  int py_start, py_finish;
+  if (p1x < p2x)
+  {
+    px_start = p1x;
+    px_finish = p2x;
+  }
+  else
+  {
+    px_start = p2x;
+    px_finish = p1x;
+  }
+  if (p1y < p2y)
+  {
+    py_start = p1y;
+    py_finish = p2y;
+  }
+  else
+  {
+    py_start = p2y;
+    py_finish = p1y;
+  }
+
+  namedWindow("janela", WINDOW_AUTOSIZE);
+
+  for (int i = px_start; i < px_finish; i++)
+  {
+    for (int j = py_start; j < py_finish; j++)
+    {
+      image.at<uchar>(i, j) = abs(image.at<uchar>(i, j) - 255);
+    }
+  }
+  imshow("janela", image);
+  waitKey();
+
+  return 0;
+}
+````
+A imagem original utilizada para testar a nossa implementação é apresentada abaixo:
+
+[![exe2](https://raw.githubusercontent.com/mcarujo/mcarujo.github.io/master/exercicios/2/biel.png)](https://github.com/mcarujo/mcarujo.github.io/blob/master/exercicios/2/biel.png)
+
+Após serem repassado os 2 pontos na entrada, obtemos a seguinte saída:
 
 [![exe2](https://raw.githubusercontent.com/mcarujo/mcarujo.github.io/master/exercicios/2/sainda_regions.png)](https://github.com/mcarujo/mcarujo.github.io/blob/master/exercicios/2/sainda_regions.png)
 
@@ -52,11 +121,161 @@ Onde o bloco seguinte está copiando cada pedeço para uma nova imagem, e durant
   inferior_direito.clone().copyTo(ponteiro);
 ```
 
+Segue abaixo a implementação completa do programa *trocaregioes.cpp*:
+
+````c++
+#include <iostream>
+#include <math.h>
+#include <opencv2/opencv.hpp>
+
+using namespace cv;
+using namespace std;
+
+int main()
+{
+  Mat image;
+
+  image = imread("Praca-do-Comercio-Lisboa.png", CV_LOAD_IMAGE_COLOR);
+  if (!image.data)
+    cout << "nao abriu a imagem" << endl;
+
+  int image_width = image.size().width;
+  int image_height = image.size().height;
+
+  Mat superior_esquerdo(image, Rect(0, 0, image_width / 2, image_height / 2));
+  Mat inferior_esquerdo(image, Rect(image_width / 2, 0, image_width / 2, image_height / 2));
+  Mat superior_direito(image, Rect(0, image_height / 2, image_width / 2, image_height / 2));
+  Mat inferior_direito(image, Rect(image_width / 2, image_height / 2, image_width / 2, image_height / 2));
+
+  Mat resultado = Mat::zeros(image.size(), image.type());
+  Mat ponteiro;
+
+  ponteiro = resultado.colRange(image_width / 2, image_width).rowRange(0, image_height / 2);
+  superior_direito.copyTo(ponteiro);
+
+  ponteiro = resultado.colRange(0, image_width / 2).rowRange(image_height / 2, image_height);
+  inferior_esquerdo.copyTo(ponteiro);
+
+  ponteiro = resultado.colRange(image_width / 2, image_width).rowRange(image_height / 2, image_height);
+  superior_esquerdo.copyTo(ponteiro);
+
+  ponteiro = resultado.colRange(0, image_width / 2).rowRange(0, image_height / 2);
+  inferior_direito.clone().copyTo(ponteiro);
+
+  namedWindow("janela", WINDOW_AUTOSIZE);
+  imshow("janela", resultado);
+  waitKey();
+  return 0;
+}
+````
+A imagem original utilizada para testar a nossa implementação é apresentada abaixo:
+
+[![exe2](https://raw.githubusercontent.com/mcarujo/mcarujo.github.io/master/exercicios/2/Praca-do-Comercio-Lisboa.png)](https://github.com/mcarujo/mcarujo.github.io/blob/master/exercicios/2/Praca-do-Comercio-Lisboa.png)
+
+Nessa outra imagem temos o resultado obtido como saída do nosso programa:
+
 [![exe2](https://raw.githubusercontent.com/mcarujo/mcarujo.github.io/master/exercicios/2/saida_troca_de_regiões.png)](https://github.com/mcarujo/mcarujo.github.io/blob/master/exercicios/2/saida_troca_de_regiões.png)
 
 ## Exercícios 3
 #### Aprimoramos o algoritmo de contagem apresentado, o qual que agora consegue identificar regiões com ou sem buracos internos que existam na cena. Tambem assumimos que objetos com mais de um buraco podem existir. Incluimos suporte no nosso algoritmo para não contar bolhas que tocam as bordas da imagem. Não não presumirmos, a priori, que elas tenham buracos ou não.
 
+O programa implementado para resolução do problema é apresentado abaixo:
+
+````c+++
+#include <iostream>
+#include <opencv2/opencv.hpp>
+
+using namespace cv;
+using namespace std;
+
+int main(int argc, char *  * argv) {
+    Mat image, mask;
+    int width, height;
+    int nobjects,inobjects;
+
+    CvPoint p;
+    image = imread(argv[1], CV_LOAD_IMAGE_GRAYSCALE);
+
+    if ( ! image.data) {
+        cout << "imagem nao carregou corretamente\n";
+        return (-1);
+    }
+    width = image.size().width;
+    height = image.size().height;
+
+    p.x = 0;
+    p.y = 0;
+    //Varredura nas Bordas
+    //Horizontal
+    for (int i = 0; i < height; i = i + height - 1) {
+        for (int j = 0; j < width; j++) {
+            if (image.at<uchar>(i,j) == 255) {
+                // achou um objeto
+                p.x = j;
+                p.y = i;
+                floodFill(image, p, 0);
+            }
+        }
+    }
+    //Vertical
+    for (int i = 0; i < height; i++) {
+        for (int j = 0; j < width; j = j + width - 1) {
+            if (image.at<uchar>(i,j) == 255) {
+                // achou um objeto
+                p.x = j;
+                p.y = i;
+                floodFill(image, p, 0);
+            }
+        }
+    }
+    imwrite("labeling_bordas.png", image);
+    p.x=0;
+    p.y=0;
+    nobjects=0;
+    for(int i=0; i<height; i++){
+        for(int j=0; j<width; j++){
+            if(image.at<uchar>(i,j) == 255){
+                // achou um objeto
+                nobjects++;
+                p.x=j;
+                p.y=i;
+                floodFill(image,p,nobjects);
+            }
+        }
+    }
+
+    imwrite("labeling_total.png", image);
+    inobjects = 0;
+    // busca objetos com buracos presentes
+    p.x = 0;
+    p.y = 0;
+    floodFill(image, p, 255);
+
+    for (int i = 1; i < height-1; i++) {
+        for (int j = 1; j < width-1; j++) {
+            if (image.at<uchar>(i-1, j) > 0 
+                && image.at<uchar>(i-1,j) < 255 
+                && image.at<uchar>(i,j) == 0)
+            {
+                // achou um objeto
+                inobjects++;
+                p.x = j;
+                p.y = i-1;
+                floodFill(image, p, 255);
+                p.x = j;
+                p.y = i;
+                floodFill(image, p, 255);
+            }
+        }
+    }
+
+    imshow("image", image);
+    imwrite("labeling_com_bolhas.png", image);
+    waitKey();
+    cout << "\nForam encontradas " << nobjects << " bolhas no total sendo " << inobjects << " com bolhas internas \n";
+    return 0;
+}
+````
 Executando o comando para execução do programa labeling:
 
 [![exe2](https://raw.githubusercontent.com/mcarujo/mcarujo.github.io/master/exercicios/3/entrada.png)](https://github.com/mcarujo/mcarujo.github.io/blob/master/exercicios/3/entrada.png)
@@ -102,6 +321,100 @@ O processo da equalização é feito antes de ser calculado os histogramas e ser
     merge(planes, image); 
 ```
 
+Segue abaixo a implementação completa do programa *equalize.cpp*:
+
+````c++
+#include <iostream>
+#include <opencv2/opencv.hpp>
+
+using namespace cv;
+using namespace std;
+
+int main(int argc, char** argv){
+  Mat image;
+  int width, height;
+  VideoCapture cap;
+  vector<Mat> planes;
+  Mat histR, histG, histB;
+  int nbins = 64;
+  float range[] = {0, 256};
+  const float *histrange = { range };
+  bool uniform = true;
+  bool acummulate = false;
+
+  cap.open(0);
+
+  if(!cap.isOpened()){
+    cout << "cameras indisponiveis";
+    return -1;
+  }
+
+  width  = cap.get(CV_CAP_PROP_FRAME_WIDTH);
+  height = cap.get(CV_CAP_PROP_FRAME_HEIGHT);
+
+  cout << "largura = " << width << endl;
+  cout << "altura  = " << height << endl;
+
+  int histw = nbins, histh = nbins/2;
+  Mat histImgR(histh, histw, CV_8UC3, Scalar(0,0,0));
+  Mat histImgG(histh, histw, CV_8UC3, Scalar(0,0,0));
+  Mat histImgB(histh, histw, CV_8UC3, Scalar(0,0,0));
+
+  while(1){
+    cap >> image;
+    split (image, planes);
+
+    equalizeHist(planes[0], planes[0]);
+    equalizeHist(planes[1], planes[1]);
+    equalizeHist(planes[2], planes[2]);    
+     
+    merge(planes, image); 
+
+    calcHist(&planes[0], 1, 0, Mat(), histR, 1,
+             &nbins, &histrange,
+             uniform, acummulate);
+    calcHist(&planes[1], 1, 0, Mat(), histG, 1,
+             &nbins, &histrange,
+             uniform, acummulate);
+    calcHist(&planes[2], 1, 0, Mat(), histB, 1,
+             &nbins, &histrange,
+             uniform, acummulate);
+
+    
+
+    normalize(histR, histR, 0, histImgR.rows, NORM_MINMAX, -1, Mat());
+    normalize(histG, histG, 0, histImgG.rows, NORM_MINMAX, -1, Mat());
+    normalize(histB, histB, 0, histImgB.rows, NORM_MINMAX, -1, Mat());
+    
+    histImgR.setTo(Scalar(0));
+    histImgG.setTo(Scalar(0));
+    histImgB.setTo(Scalar(0));
+
+    for(int i=0; i<nbins; i++){
+      line(histImgR,
+           Point(i, histh),
+           Point(i, histh-cvRound(histR.at<float>(i))),
+           Scalar(0, 0, 255), 1, 8, 0);
+      line(histImgG,
+           Point(i, histh),
+           Point(i, histh-cvRound(histG.at<float>(i))),
+           Scalar(0, 255, 0), 1, 8, 0);
+      line(histImgB,
+           Point(i, histh),
+           Point(i, histh-cvRound(histB.at<float>(i))),
+           Scalar(255, 0, 0), 1, 8, 0);
+    }
+
+    histImgR.copyTo(image(Rect(0, 0       ,nbins, histh)));
+    histImgG.copyTo(image(Rect(0, histh   ,nbins, histh)));
+    histImgB.copyTo(image(Rect(0, 2*histh ,nbins, histh)));
+    imshow("image", image);
+    if(waitKey(30) >= 0) break;
+  }
+  return 0;
+}
+````
+
 #### Utilizando o programa exemplos/histogram.cpp como referência, implementamos um programa motiondetector.cpp. O programa está calculando os histogramas das imagens, mas utiliza apenas um histograma para verificar se houve uma mudança no cenário filmado.
 
 o programa faz uma amostragem de 30 frames para capturar o seu frame de referência para comprar se houve mudança brusca no cenrio da câmera ou não.
@@ -122,6 +435,109 @@ Esse histograma calculado é atualizado a cada 30 frames, e serve de comparaçã
 ```
 
 [![exe2](https://raw.githubusercontent.com/mcarujo/mcarujo.github.io/master/exercicios/4/motion.png)](https://github.com/mcarujo/mcarujo.github.io/blob/master/exercicios/4/motion.png)
+
+Segue abaixo a implementação completa do programa *motiondetector.cpp*:
+
+````c++
+#include <iostream>
+#include <opencv2/opencv.hpp>
+
+using namespace cv;
+using namespace std;
+
+int main(int argc, char** argv){
+  Mat image;
+  int width, height;
+  VideoCapture cap;
+  vector<Mat> planes;
+  Mat histR, histG, histB, histS, histS1;
+  int nbins = 64, count_frames = 99999999;
+  float range[] = {0, 256};
+  double flag;
+  const float *histrange = { range };
+  bool uniform = true;
+  bool acummulate = false;
+
+  cap.open(0);
+  
+  if(!cap.isOpened()){
+    cout << "cameras indisponiveis";
+    return -1;
+  }
+  
+  width  = cap.get(CV_CAP_PROP_FRAME_WIDTH);
+  height = cap.get(CV_CAP_PROP_FRAME_HEIGHT);
+
+  cout << "largura = " << width << endl;
+  cout << "altura  = " << height << endl;
+
+  int histw = nbins, histh = nbins/2;
+  Mat histImgR(histh, histw, CV_8UC3, Scalar(0,0,0));
+  Mat histImgG(histh, histw, CV_8UC3, Scalar(0,0,0));
+  Mat histImgB(histh, histw, CV_8UC3, Scalar(0,0,0));
+  Mat histImgS(histh, histw, CV_8UC3, Scalar(0,0,0));
+
+  while(1){
+    cap >> image;
+    split (image, planes);
+    if(count_frames > 30)
+    {
+        count_frames = 0;
+        calcHist(&planes[0], 1, 0, Mat(), histS, 1, &nbins, &histrange, uniform, acummulate);
+    }
+
+    calcHist(&planes[0], 1, 0, Mat(), histR, 1,
+             &nbins, &histrange,
+             uniform, acummulate);
+    calcHist(&planes[1], 1, 0, Mat(), histG, 1,
+             &nbins, &histrange,
+             uniform, acummulate);
+    calcHist(&planes[2], 1, 0, Mat(), histB, 1,
+             &nbins, &histrange,
+             uniform, acummulate);
+
+    normalize(histR, histR, 0, histImgR.rows, NORM_MINMAX, -1, Mat());
+    normalize(histG, histG, 0, histImgG.rows, NORM_MINMAX, -1, Mat());
+    normalize(histB, histB, 0, histImgB.rows, NORM_MINMAX, -1, Mat());
+     
+    calcHist(&planes[0], 1, 0, Mat(), histS1, 1, &nbins, &histrange, uniform, acummulate);
+    flag = compareHist(histS1, histS, CV_COMP_CORREL);
+
+    
+    if( flag < 0.80 )
+    {
+    cout << "Alarme com flag > "<< flag << endl;
+    }
+
+    histImgR.setTo(Scalar(0));
+    histImgG.setTo(Scalar(0));
+    histImgB.setTo(Scalar(0));
+    
+    for(int i=0; i<nbins; i++){
+      line(histImgR,
+           Point(i, histh),
+           Point(i, histh-cvRound(histR.at<float>(i))),
+           Scalar(0, 0, 255), 1, 8, 0);
+      line(histImgG,
+           Point(i, histh),
+           Point(i, histh-cvRound(histG.at<float>(i))),
+           Scalar(0, 255, 0), 1, 8, 0);
+      line(histImgB,
+           Point(i, histh),
+           Point(i, histh-cvRound(histB.at<float>(i))),
+           Scalar(255, 0, 0), 1, 8, 0);
+    }
+    
+    histImgR.copyTo(image(Rect(0, 0       ,nbins, histh)));
+    histImgG.copyTo(image(Rect(0, histh   ,nbins, histh)));
+    histImgB.copyTo(image(Rect(0, 2*histh ,nbins, histh)));
+    count_frames++;
+    imshow("image", image);
+    if(waitKey(30) >= 0) break;
+  }
+  return 0;
+}
+````
 
 ## Exercícios 5
 #### Utilizando o programa exemplos/filtroespacial.cpp como referência, implementamos um programa laplgauss.cpp. O nosso programa consegue acrescentar mais uma funcionalidade ao exemplo fornecido, permitindo que seja calculado o laplaciano do gaussiano das imagens capturadas. Comparamos o resultado desse filtro com a simples aplicação do filtro laplaciano.
