@@ -1,6 +1,6 @@
 # DCA0445 - PROCESSAMENTO DIGITAL DE IMAGENS
 ## Tarefas propostas para avaliação da primeira unidade da disciplica DCA0445.
-### Alunos(as): Marco Antonio Moreira Carujo e Wysterlania Kyury Pereira Barros
+### Alunos(as): Marco Antonio Moreira Carujo e Wysterlânya Kyury Pereira Barros
 
 
 ## Exercícios 2
@@ -181,7 +181,7 @@ Nessa outra imagem temos o resultado obtido como saída do nosso programa:
 
 O programa implementado para resolução do problema é apresentado abaixo:
 
-````c+++
+````c++
 #include <iostream>
 #include <opencv2/opencv.hpp>
 
