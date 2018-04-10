@@ -262,18 +262,18 @@ int main(int argvc, char** argv){
 }
 ```
 
-## Exercícios 6
+## Exercícios 6.1
 #### Utilizando o programa exemplos/addweighted.cpp como referência, implementamos um programa tiltshift.cpp. Com três ajustes que são providos na tela da interface:
 
-#####um ajuste para regular a altura da região central que entrará em foco;
+* um ajuste para regular a altura da região central que entrará em foco;
 
-#####um ajuste para regular a força de decaimento da região borrada;
+* um ajuste para regular a força de decaimento da região borrada;
 
-#####um ajuste para regular a posição vertical do centro da região que entrará em foco. Finalizado o programa, a imagem produzida deverá ser salva em arquivo.
+* um ajuste para regular a posição vertical do centro da região que entrará em foco. Finalizado o programa, a imagem produzida deverá ser salva em arquivo.
  
  XXXX
  
- 
+## Exercícios 6.2
 #### Utilizando o programa exemplos/addweighted.cpp como referência, implementamos um programa tiltshiftvideo.cpp. O qual é capaz de processar um arquivo de vídeo, produzir o efeito de tilt-shift nos quadros presentes e escrever o resultado em outro arquivo de vídeo.
 
 
