@@ -39,12 +39,19 @@ E considerando apenas as que não possem bolhas internas:
 
 [![exe2](https://raw.githubusercontent.com/mcarujo/mcarujo.github.io/master/exercicios/3/labeling_com_bolhas.png)](https://github.com/mcarujo/mcarujo.github.io/blob/master/exercicios/3/labeling_com_bolhas.png)
 
-Temos a resposta de que foram identificadas 21bolhas no total sendo 7 com bolhas internas
+Temos a resposta de que foram identificadas 21 bolhas no total sendo 7 com bolhas internas
 
 ## Exercícios 4
 #### Utilizando o programa exemplos/histogram.cpp como referência, implementamos um programa equalize.cpp. O qual para cada imagem capturada, realizar a equalização do histogram antes de exibir a imagem. 
 
-XXXX 
+Sem a equalização, e com um cenário com pouca iluminação notamos a seguinte imagem:
+
+[![exe2](https://raw.githubusercontent.com/mcarujo/mcarujo.github.io/master/exercicios/4/sem_equalizar.png)](https://github.com/mcarujo/mcarujo.github.io/blob/master/exercicios/4/sem_equalizar.png)
+
+Aopós a equalização notamos uma distenção de cores grande:
+
+[![exe2](https://raw.githubusercontent.com/mcarujo/mcarujo.github.io/master/exercicios/4/com_equalizar.png)](https://github.com/mcarujo/mcarujo.github.io/blob/master/exercicios/4/com_equalizar.png)
+
 
 #### Utilizando o programa exemplos/histogram.cpp como referência, implementamos um programa motiondetector.cpp. O programa está calculando os histogramas das imagens, mas utiliza apenas um histograma para verificar se houve uma mudança no cenário filmado.
 
