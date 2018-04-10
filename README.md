@@ -288,7 +288,7 @@ int main(int argvc, char** argv){
 
 Essa foi a imagem capturada para ser utilizada como teste da nossa implementação, sendo aqui apresentada a imagem original sem nenhum filtro: 
 
-[![exe3](https://github.com/mcarujo/mcarujo.github.io/blob/master/exercicios/5/original.png)](https://github.com/mcarujo/mcarujo.github.io/blob/master/exercicios/5/original.png)
+[![exe3](https://raw.githubusercontent.com/mcarujo/mcarujo.github.io/master/exercicios/5/original.png)](https://github.com/mcarujo/mcarujo.github.io/blob/master/exercicios/5/original.png)
 
 A imagem capturada apenas com o filtro do laplaciano:
 
