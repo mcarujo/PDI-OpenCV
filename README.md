@@ -538,8 +538,8 @@ int main(int argvc, char** argv){
 
 O vídeo original utilizado para testar a nossa implementação é apresentado abaixo:
 
-[![Everything Is AWESOME](https://raw.githubusercontent.com/mcarujo/mcarujo.github.io/master/exercicios/6/Parte%202/Entrada.png)](https://youtu.be/uaCtl8rblro "Everything Is AWESOME")
+[![Canon EOS 100D Full HD Sample Video](https://raw.githubusercontent.com/mcarujo/mcarujo.github.io/master/exercicios/6/Parte%202/Entrada.png)](https://youtu.be/uaCtl8rblro "Everything Is AWESOME")
 
 Usando esse vídeo como entrada, obtivemos o seguinte vídeo de saída:
 
-[![new](https://raw.githubusercontent.com/mcarujo/mcarujo.github.io/master/exercicios/6/Parte%202/Saida.png)](https://drive.google.com/file/d/1B0TDSFUQI_xH6XCPl2o8oF90m5A6h8sj/view?usp=sharing "new")
+[![Saida do Programa](https://raw.githubusercontent.com/mcarujo/mcarujo.github.io/master/exercicios/6/Parte%202/Saida.png)](https://drive.google.com/file/d/1B0TDSFUQI_xH6XCPl2o8oF90m5A6h8sj/view?usp=sharing "new")
