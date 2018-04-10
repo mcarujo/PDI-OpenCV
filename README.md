@@ -398,5 +398,7 @@ E nessa imagem temos o resultado obtido ao definir a casa mais próxima ao lago 
 ## Exercícios 6.2
 #### Utilizando o programa exemplos/addweighted.cpp como referência, implementamos um programa tiltshiftvideo.cpp. O qual é capaz de processar um arquivo de vídeo, produzir o efeito de tilt-shift nos quadros presentes e escrever o resultado em outro arquivo de vídeo.
 
+O programa se dá através da leitura de um arquivo de vídeo e criação de um arquivo de vídeo para escrita do novo vídeo
 
- XXXX
+[![exe2](https://drive.google.com/file/d/1W8dKzJFQyJDXqlPfUchhKnxUPj1-eUGC/view?usp=sharing)](https://drive.google.com/file/d/1W8dKzJFQyJDXqlPfUchhKnxUPj1-eUGC/view?usp=sharing)
+
