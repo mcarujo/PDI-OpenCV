@@ -504,4 +504,4 @@ O vídeo original utilizado para testar a nossa implementação é apresentado a
 
 Usando esse vídeo como entrada, obtivemos o seguinte vídeo de saída:
 
-[![new](https://github.com/mcarujo/mcarujo.github.io/blob/master/exercicios/6/Parte%202/Entrada.png)](https://drive.google.com/file/d/1B0TDSFUQI_xH6XCPl2o8oF90m5A6h8sj/view?usp=sharing "new")
+[![new](https://github.com/mcarujo/mcarujo.github.io/blob/master/exercicios/6/Parte%202/Saida.png)](https://drive.google.com/file/d/1B0TDSFUQI_xH6XCPl2o8oF90m5A6h8sj/view?usp=sharing "new")
