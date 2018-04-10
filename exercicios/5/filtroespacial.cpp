@@ -42,6 +42,11 @@ int main(int argvc, char** argv){
   float laplacian[]={0,-1,0,
 					 -1,4,-1,
 					 0,-1,0};
+  float laplacian_gauss[]={0,0,-1,0,0,
+					 0,-1,-2,-1,0,
+					 -1,-2,16,-2,-1,
+					 0,-1,-2,-1,0,
+					 0,0,-1,0,0};
 
   Mat cap, frame, frame32f, frameFiltered;
   Mat mask(3,3,CV_32F), mask1;
@@ -117,14 +122,8 @@ int main(int argvc, char** argv){
       break;
     case 'n':
 	  menu();
-      mask = Mat(3, 3, CV_32F, gauss);
-      scaleAdd(mask, 1/16.0, Mat::zeros(3,3,CV_32F), mask1);
-      mask = mask1;
-      
-      frame.convertTo(frame32f, CV_32F);
-      filter2D(frame32f, frameFiltered, frame32f.depth(), mask, Point(1,1), 0);
-      
-      mask = Mat(3, 3, CV_32F, laplacian);
+      mask = Mat(5, 5, CV_32F, laplacian_gauss);
+      printmask(mask);
       break;
     default:
       break;
