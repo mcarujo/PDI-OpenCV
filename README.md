@@ -31,7 +31,7 @@ O código abaixo é responsavel para salvar os quatro pedaços da imagem princip
   Mat superior_esquerdo(image, Rect(0, 0, image_width / 2, image_height / 2));
   Mat inferior_esquerdo(image, Rect(image_width / 2, 0, image_width / 2, image_height / 2));
   Mat superior_direito(image, Rect(0, image_height / 2, image_width / 2, image_height / 2));
-Mat inferior_direito(image, Rect(image_width / 2, image_height / 2, image_width / 2, image_height / 2));
+  Mat inferior_direito(image, Rect(image_width / 2, image_height / 2, image_width / 2, image_height / 2));
 ```
 Onde o bloco seguinte está copiando cada pedeço para uma nova imagem, e durante o processo, trocando as possições do quadrante.
 
