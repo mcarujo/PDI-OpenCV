@@ -292,11 +292,11 @@ Essa foi a imagem capturada para ser utilizada como teste da nossa implementaç�
 
 A imagem capturada apenas com o filtro do laplaciano:
 
-[![exe4](https://github.com/mcarujo/mcarujo.github.io/blob/master/exercicios/5/la1.png)](https://github.com/mcarujo/mcarujo.github.io/blob/master/exercicios/5/la1.png)
+[![exe4](https://raw.githubusercontent.com/mcarujo/mcarujo.github.io/master/exercicios/5/la1.png)](https://github.com/mcarujo/mcarujo.github.io/blob/master/exercicios/5/la1.png)
 
 E a imagem capturada com o filtro do laplaciano do gaussiano:
 
-[![exe5](https://github.com/mcarujo/mcarujo.github.io/blob/master/exercicios/5/lg1.png)](https://github.com/mcarujo/mcarujo.github.io/blob/master/exercicios/5/lg1.png)
+[![exe5](https://raw.githubusercontent.com/mcarujo/mcarujo.github.io/master/exercicios/5/lg1.png)](https://github.com/mcarujo/mcarujo.github.io/blob/master/exercicios/5/lg1.png)
 
 Como podemos observar, com o filtro do laplaciano do gaussiano podemos obter uma imagem com as bordas mais ressaltadas, porém com um pouco mais de ruído quando comparado com resultado obtido apenas com a aplicação do filtro laplaciano.
 
@@ -311,7 +311,7 @@ Como podemos observar, com o filtro do laplaciano do gaussiano podemos obter uma
 
 No main definimos a máscara de borramento *media* e o realizamos o borramento da imagem 15 vezes para se tornar mais vísivel o borramento. No main também declaramos as barras da nossa janela para o controle dos ajustes desejados. Obtivemos então a nova tela para visualação da imagem e exebição das barras de ajuste:
 
-[![exe6](https://github.com/mcarujo/mcarujo.github.io/blob/master/exercicios/6/Parte%201/tela.png)](https://github.com/mcarujo/mcarujo.github.io/blob/master/exercicios/6/Parte%201/tela.png)
+[![exe6](https://raw.githubusercontent.com/mcarujo/mcarujo.github.io/master/exercicios/6/Parte%201/tela.png)](https://github.com/mcarujo/mcarujo.github.io/blob/master/exercicios/6/Parte%201/tela.png)
 
 Na função *on_trackbar_centro* temos o ajuste para regular a posição vertical do centro da região que entrará em foco. Em outra função, denominada *on_trackbar_decaimento* temos o ajuste para regular a força de decaimento da região borrada, sendo o decaimento no mínimo 1. E, por fim, temos a função *on_trackbar_regiao* responsável por regular a altura da região central que entrará em foco e atualizar a imagem em exibição e salvá-la.
 
@@ -423,15 +423,15 @@ int main(int argvc, char** argv){
 
 A imagem original utilizada para testar a nossa implementação é apresentada abaixo:
 
-[![exe7](https://github.com/mcarujo/mcarujo.github.io/blob/master/exercicios/6/Parte%201/entrada.jpg)](https://github.com/mcarujo/mcarujo.github.io/blob/master/exercicios/6/Parte%201/entrada.jpg)
+[![exe7](https://raw.githubusercontent.com/mcarujo/mcarujo.github.io/master/exercicios/6/Parte%201/entrada.jpg)](https://github.com/mcarujo/mcarujo.github.io/blob/master/exercicios/6/Parte%201/entrada.jpg)
 
 Nessa outra imagem temos o resultado obtido ao definir a igreja e a casa vermelha como região de foco :
 
-[![exe8](https://github.com/mcarujo/mcarujo.github.io/blob/master/exercicios/6/Parte%201/saida_igreja.png)](https://github.com/mcarujo/mcarujo.github.io/blob/master/exercicios/6/Parte%201/saida_igreja.png)
+[![exe8](https://raw.githubusercontent.com/mcarujo/mcarujo.github.io/master/exercicios/6/Parte%201/saida_igreja.png)](https://github.com/mcarujo/mcarujo.github.io/blob/master/exercicios/6/Parte%201/saida_igreja.png)
 
 E nessa imagem temos o resultado obtido ao definir a casa mais próxima ao lago como região de foco :
 
-[![exe9](https://github.com/mcarujo/mcarujo.github.io/blob/master/exercicios/6/Parte%201/saida_casa_do_lago.png)](https://github.com/mcarujo/mcarujo.github.io/blob/master/exercicios/6/Parte%201/saida_casa_do_lago.png)
+[![exe9](https://raw.githubusercontent.com/mcarujo/mcarujo.github.io/master/exercicios/6/Parte%201/saida_casa_do_lago.png)](https://github.com/mcarujo/mcarujo.github.io/blob/master/exercicios/6/Parte%201/saida_casa_do_lago.png)
 
 ## Exercícios 6.2
 #### Utilizando o programa exemplos/addweighted.cpp como referência, implementamos um programa tiltshiftvideo.cpp. O qual é capaz de processar um arquivo de vídeo, produzir o efeito de tilt-shift nos quadros presentes e escrever o resultado em outro arquivo de vídeo.
@@ -538,8 +538,8 @@ int main(int argvc, char** argv){
 
 O vídeo original utilizado para testar a nossa implementação é apresentado abaixo:
 
-[![Everything Is AWESOME](https://github.com/mcarujo/mcarujo.github.io/blob/master/exercicios/6/Parte%202/Entrada.png)](https://youtu.be/uaCtl8rblro "Everything Is AWESOME")
+[![Everything Is AWESOME](https://raw.githubusercontent.com/mcarujo/mcarujo.github.io/master/exercicios/6/Parte%202/Entrada.png)](https://youtu.be/uaCtl8rblro "Everything Is AWESOME")
 
 Usando esse vídeo como entrada, obtivemos o seguinte vídeo de saída:
 
-[![new](https://github.com/mcarujo/mcarujo.github.io/blob/master/exercicios/6/Parte%202/Saida.png)](https://drive.google.com/file/d/1B0TDSFUQI_xH6XCPl2o8oF90m5A6h8sj/view?usp=sharing "new")
+[![new](https://raw.githubusercontent.com/mcarujo/mcarujo.github.io/master/exercicios/6/Parte%202/Saida.png)](https://drive.google.com/file/d/1B0TDSFUQI_xH6XCPl2o8oF90m5A6h8sj/view?usp=sharing "new")
