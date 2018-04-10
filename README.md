@@ -52,6 +52,17 @@ Aopós a equalização notamos o hisograma fica com tons mais espalhados e com u
 
 [![exe2](https://raw.githubusercontent.com/mcarujo/mcarujo.github.io/master/exercicios/4/com_equalizar.png)](https://github.com/mcarujo/mcarujo.github.io/blob/master/exercicios/4/com_equalizar.png)
 
+O processo da equalização é feito antes de ser calculado os histogramas e ser mostrado a imagem capturada pela câmera, assim que obtivemos a imagem fazemos a equalização da mesma.
+```
+ cap >> image;
+    split (image, planes);
+
+    equalizeHist(planes[0], planes[0]);
+    equalizeHist(planes[1], planes[1]);
+    equalizeHist(planes[2], planes[2]);    
+     
+    merge(planes, image); 
+```
 
 #### Utilizando o programa exemplos/histogram.cpp como referência, implementamos um programa motiondetector.cpp. O programa está calculando os histogramas das imagens, mas utiliza apenas um histograma para verificar se houve uma mudança no cenário filmado.
 
