@@ -88,7 +88,23 @@ Esse histograma calculado é atualizado a cada 30 frames, e serve de comparaçã
 ## Exercícios 5
 #### Utilizando o programa exemplos/filtroespacial.cpp como referência, implementamos um programa laplgauss.cpp. O nosso programa consegue acrescentar mais uma funcionalidade ao exemplo fornecido, permitindo que seja calculado o laplaciano do gaussiano das imagens capturadas. Comparamos o resultado desse filtro com a simples aplicação do filtro laplaciano.
 
-XXXX
+Primeiramente adicionamos ao menu de opções de filtro uma nova opção, a opção 'n', a qual realiza a aplicação direta do laplaciano do gaussiano na imagem capturada. Escolhendo essa nova opção de filtro o switch case, que determina a ação realizada de acordo com a entrada do usuário no menu, nos direciona ao seguinte trecho de códgio: 
+
+```c++
+case 'n':
+	  menu();
+      mask = Mat(3, 3, CV_32F, gauss);
+      scaleAdd(mask, 1/16.0, Mat::zeros(3,3,CV_32F), mask1);
+      mask = mask1;
+      
+      frame.convertTo(frame32f, CV_32F);
+      filter2D(frame32f, frameFiltered, frame32f.depth(), mask, Point(1,1), 0);
+      
+      mask = Mat(3, 3, CV_32F, laplacian);
+      break;
+```
+
+
 
 ## Exercícios 6
 #### Utilizando o programa exemplos/addweighted.cpp como referência, implementamos um programa tiltshift.cpp. Com três ajustes que são providos na tela da interface:
