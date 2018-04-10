@@ -44,11 +44,11 @@ Temos a resposta de que foram identificadas 21 bolhas no total sendo 7 com bolha
 ## Exercícios 4
 #### Utilizando o programa exemplos/histogram.cpp como referência, implementamos um programa equalize.cpp. O qual para cada imagem capturada, realizar a equalização do histogram antes de exibir a imagem. 
 
-Sem a equalização, e com um cenário com pouca iluminação notamos a seguinte imagem:
+Sem a equalização, e com um cenário com pouca iluminação notamos que o histograma fica com tons contrados proximo a zero como demonstra a seguinte imagem:
 
 [![exe2](https://raw.githubusercontent.com/mcarujo/mcarujo.github.io/master/exercicios/4/sem_equalizar.png)](https://github.com/mcarujo/mcarujo.github.io/blob/master/exercicios/4/sem_equalizar.png)
 
-Aopós a equalização notamos uma distenção de cores grande:
+Aopós a equalização notamos o hisograma fica com tons mais espalhados e com uma transiço brusca entre os tons.
 
 [![exe2](https://raw.githubusercontent.com/mcarujo/mcarujo.github.io/master/exercicios/4/com_equalizar.png)](https://github.com/mcarujo/mcarujo.github.io/blob/master/exercicios/4/com_equalizar.png)
 
