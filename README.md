@@ -55,7 +55,24 @@ Aopós a equalização notamos o hisograma fica com tons mais espalhados e com u
 
 #### Utilizando o programa exemplos/histogram.cpp como referência, implementamos um programa motiondetector.cpp. O programa está calculando os histogramas das imagens, mas utiliza apenas um histograma para verificar se houve uma mudança no cenário filmado.
 
-XXXX
+o programa faz uma amostragem de 30 frames para capturar o seu frame de referência para comprar se houve mudança brusca no cenrio da câmera ou não.
+
+```
+if(count_frames > 30)
+    {
+        count_frames = 0;
+        calcHist(&planes[0], 1, 0, Mat(), histS, 1, &nbins, &histrange, uniform, acummulate);
+    }
+```
+Esse histograma calculado é atualizado a cada 30 frames, e serve de comparação para o histograma em tempo real, e caso seja dectadada alguma diferença alta, será imprimido no terminal o alerta.
+```
+   if( flag < 0.80 )
+    {
+    cout << "Alarme com flag > "<< flag << endl;
+    }
+```
+
+[![exe2](https://raw.githubusercontent.com/mcarujo/mcarujo.github.io/master/exercicios/4/motion.png)](https://github.com/mcarujo/mcarujo.github.io/blob/master/exercicios/4/motion.png)
 
 ## Exercícios 5
 #### Utilizando o programa exemplos/filtroespacial.cpp como referência, implementamos um programa laplgauss.cpp. O nosso programa consegue acrescentar mais uma funcionalidade ao exemplo fornecido, permitindo que seja calculado o laplaciano do gaussiano das imagens capturadas. Comparamos o resultado desse filtro com a simples aplicação do filtro laplaciano.
