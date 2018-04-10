@@ -34,8 +34,9 @@ O código abaixo é responsavel para salvar os quatro pedaços da imagem princip
 Mat inferior_direito(image, Rect(image_width / 2, image_height / 2, image_width / 2, image_height / 2));
 ```
 Onde o bloco seguinte está copiando cada pedeço para uma nova imagem, e durante o processo, trocando as possições do quadrante.
+
 ```c++
-Mat resultado = Mat::zeros(image.size(), image.type());
+  Mat resultado = Mat::zeros(image.size(), image.type());
   Mat ponteiro;
 
   ponteiro = resultado.colRange(image_width / 2, image_width).rowRange(0, image_height / 2);
@@ -48,7 +49,7 @@ Mat resultado = Mat::zeros(image.size(), image.type());
   superior_esquerdo.copyTo(ponteiro);
 
   ponteiro = resultado.colRange(0, image_width / 2).rowRange(0, image_height / 2);
-inferior_direito.clone().copyTo(ponteiro);
+  inferior_direito.clone().copyTo(ponteiro);
 ```
 
 [![exe2](https://raw.githubusercontent.com/mcarujo/mcarujo.github.io/master/exercicios/2/saida_troca_de_regiões.png)](https://github.com/mcarujo/mcarujo.github.io/blob/master/exercicios/2/saida_troca_de_regiões.png)
