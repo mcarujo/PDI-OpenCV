@@ -9,7 +9,7 @@ int main()
 {
   Mat image;
 
-  image = imread("biel.png", CV_LOAD_IMAGE_COLOR);
+  image = imread("Praca-do-Comercio-Lisboa.png", CV_LOAD_IMAGE_COLOR);
   if (!image.data)
     cout << "nao abriu a imagem" << endl;
 
