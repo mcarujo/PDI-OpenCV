@@ -26,6 +26,31 @@ Após serem repassado os 2 pontos na entrada, temos uma saída como:
 
 #### Também seguindo o programa exemplos/pixels.cpp como referência, implementamos um programa trocaregioes.cpp, o qual divide a imagem em 4 quadrantes e troca eles de posições.
 
+O código abaixo é responsavel para salvar os quatro pedaços da imagem principal.
+```c++
+  Mat superior_esquerdo(image, Rect(0, 0, image_width / 2, image_height / 2));
+  Mat inferior_esquerdo(image, Rect(image_width / 2, 0, image_width / 2, image_height / 2));
+  Mat superior_direito(image, Rect(0, image_height / 2, image_width / 2, image_height / 2));
+Mat inferior_direito(image, Rect(image_width / 2, image_height / 2, image_width / 2, image_height / 2));
+```
+Onde o bloco seguinte está copiando cada pedeço para uma nova imagem, e durante o processo, trocando as possições do quadrante.
+```c++
+Mat resultado = Mat::zeros(image.size(), image.type());
+  Mat ponteiro;
+
+  ponteiro = resultado.colRange(image_width / 2, image_width).rowRange(0, image_height / 2);
+  superior_direito.copyTo(ponteiro);
+
+  ponteiro = resultado.colRange(0, image_width / 2).rowRange(image_height / 2, image_height);
+  inferior_esquerdo.copyTo(ponteiro);
+
+  ponteiro = resultado.colRange(image_width / 2, image_width).rowRange(image_height / 2, image_height);
+  superior_esquerdo.copyTo(ponteiro);
+
+  ponteiro = resultado.colRange(0, image_width / 2).rowRange(0, image_height / 2);
+inferior_direito.clone().copyTo(ponteiro);
+```
+
 [![exe2](https://raw.githubusercontent.com/mcarujo/mcarujo.github.io/master/exercicios/2/saida_troca_de_regiões.png)](https://github.com/mcarujo/mcarujo.github.io/blob/master/exercicios/2/saida_troca_de_regiões.png)
 
 ## Exercícios 3
