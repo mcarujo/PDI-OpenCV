@@ -19,12 +19,12 @@ int main(int, char **)
   if (!image.data)
     cout << "nao abriu a imagem.png" << endl;
 
-  cout << "Porfavor me informa o ponto 1 x e y \n:";
+  cout << "Porfavor me informa o ponto 1 x e y :";
+  cout << "\n";
   cin >> p1x >> p1y;
-
-  cout << "Porfavor me informa o ponto 2 x e y \n :";
+  cout << "Porfavor me informa o ponto 2 x e y :";
+  cout << "\n";
   cin >> p2x >> p2y;
-
   int px_start, px_finish;
   int py_start, py_finish;
   if (p1x < p2x)

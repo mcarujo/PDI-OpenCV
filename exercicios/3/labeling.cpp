@@ -88,6 +88,6 @@ int main(int argc, char *  * argv) {
     imshow("image", image);
     imwrite("labeling_com_bolhas.png", image);
     waitKey();
-    cout << "\nForam encontradas " << nobjects << " bolhas externas e " << inobjects << " bolhas externas \n";
+    cout << "\nForam encontradas " << nobjects << " bolhas no total sendo " << inobjects << " com bolhas internas \n";
     return 0;
 }
