@@ -398,7 +398,110 @@ E nessa imagem temos o resultado obtido ao definir a casa mais próxima ao lago 
 ## Exercícios 6.2
 #### Utilizando o programa exemplos/addweighted.cpp como referência, implementamos um programa tiltshiftvideo.cpp. O qual é capaz de processar um arquivo de vídeo, produzir o efeito de tilt-shift nos quadros presentes e escrever o resultado em outro arquivo de vídeo.
 
-O programa se dá através da leitura de um arquivo de vídeo e criação de um arquivo de vídeo para escrita do novo vídeo
+O programa se dá através da leitura de um arquivo de vídeo e criação de um arquivo de vídeo para escrita do novo vídeo. Para a escrita do nosso vídeo de saída descartamos alguns quadros do vídeo original para evidenciar o efeito de stop motion, reduzindo também o fps do vídeo de entrada pela metade no vídeo de saída.
+
+O efeito de borramento do vídeo se deu utilizando a mesma ideia implementada no exercício 6.1, com a única diferença do borramento ser realizado por uma máscara 9x9. Para realização do borramento definimos a altura da região central do foco como 30% da altura do vídeo, a posição vertical do centro da região que entrará em foco ao meio do vídeo e o decaimento da região borrada igual a 10.
+
+O código implementado é apresentado a seguir: 
+
+```c++
+#include <iostream>
+#include <string>
+
+#include <opencv2/opencv.hpp>
+
+using namespace cv;
+using namespace std;
+
+int main(int argvc, char** argv){
+	const string source = argv[1];
+	int cont = 0, taxa = 2;
+	
+	// Abertura do vídeo e obtenção de alguns dos seus parâmetros
+	VideoCapture inputVideo(source);
+	if (!inputVideo.isOpened())
+    	{
+        	cout  << "O vídeo não pode ser aberto: " << source << endl;
+        	return -1;
+    	}
+    	
+    	Size S = Size((int) inputVideo.get(CAP_PROP_FRAME_WIDTH),    
+                      (int) inputVideo.get(CAP_PROP_FRAME_HEIGHT));
+        
+     	// Criação do arquivo de vídeo para escrita
+    	VideoWriter outputVideo;
+    	outputVideo.open("saida.mkv", CV_FOURCC('D', 'I', 'V', '3'), inputVideo.get(CAP_PROP_FPS)/taxa, S, true);	    
+	if (!outputVideo.isOpened())
+	{
+		cout  << "Não é possivel abrir o arquivo para escrita: " << source << endl;
+		return -1;
+	}
+	
+	// Parâmetros para efeito Tiltshift
+	Mat mask(9,9,CV_32F), mask1;
+	Mat image32f, imageFiltered, result;
+	Mat image1, image2, res;
+
+	double alfa;
+
+	double altura = 0.3 * S.height; // A altura da região central será 30% da altura do vídeo 
+	double centro = 0.5 * S.height; // A posição vertical do centro da região que entrará em foco estará bem no meio do vídeo
+	double decaimento = 10; // O decaimento da região borrada será 10
+	double l1 = centro - altura/2;
+	double l2 = centro + altura/2;
+	
+	float media[] = {1,1,1,1,1,1,1,1,1,
+ 	 	         1,1,1,1,1,1,1,1,1,
+ 	 	         1,1,1,1,1,1,1,1,1,
+ 	 	         1,1,1,1,1,1,1,1,1,
+ 	 	         1,1,1,1,1,1,1,1,1,
+ 	 	         1,1,1,1,1,1,1,1,1,
+ 	 	         1,1,1,1,1,1,1,1,1,
+ 	 	         1,1,1,1,1,1,1,1,1,
+		         1,1,1,1,1,1,1,1,1};
+	
+  	mask = Mat(9, 9, CV_32F, media); 
+	scaleAdd(mask, 1/81.0, Mat::zeros(9,9,CV_32F), mask1);
+        swap(mask, mask1);
+		
+	for(;;)
+   	{
+   	   	cont++;
+   		
+   		if(cont > 100)
+   		{
+			inputVideo >> image1;              
+			if (image1.empty()) break; // checa se o vídeo acabou
+			
+			image2 = image1.clone();
+			image2.convertTo(image32f, CV_32F);
+			
+			// A imagem é borrada várias vezes para poder ser notado melhor o efeito de borramento
+			for (int i = 0; i < 100; i++) 
+				filter2D(image32f, imageFiltered, image32f.depth(), mask, Point(2,2), 0);
+			
+			// A variável 'result' guarda a imagem borrada
+			imageFiltered.convertTo(result, CV_8U); 
+			
+			for(int i = 0; i < result.size().height; i++)
+			{
+				alfa = 0.5 * (tanh((i - l1) / decaimento) - tanh((i - l2) / decaimento));
+				addWeighted(image1.row(i), alfa, result.row(i), 1.0 - alfa, 0.0, image2.row(i));
+			}
+       		
+       			outputVideo << image2;
+       			cont = 0;
+       		}
+    	}
+
+	return 0;
+}
+```
+
+O vídeo original utilizado para testar a nossa implementação é apresentado abaixo:
 
 [![Everything Is AWESOME](https://github.com/mcarujo/mcarujo.github.io/blob/master/exercicios/6/Parte%202/Entrada.png)](https://youtu.be/uaCtl8rblro "Everything Is AWESOME")
 
+Usando esse vídeo como entrada, obtivemos o seguinte vídeo de saída:
+
+[![new](https://github.com/mcarujo/mcarujo.github.io/blob/master/exercicios/6/Parte%202/Entrada.png)](https://drive.google.com/file/d/1B0TDSFUQI_xH6XCPl2o8oF90m5A6h8sj/view?usp=sharing "new")
