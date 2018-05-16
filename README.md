@@ -966,7 +966,7 @@ Usando esse vídeo como entrada, obtivemos o seguinte vídeo de saída:
 ## Exercícios 7
 
 ## Exercícios 8
-``
+```c++
 #include <iostream>
 #include <opencv2/opencv.hpp>
 #include <fstream>
@@ -1074,7 +1074,7 @@ int main(int argc, char** argv){
   imwrite("pontos.jpg", points);
   return 0;
 }
-``
+```
 
 ## Exercícios 9
 
