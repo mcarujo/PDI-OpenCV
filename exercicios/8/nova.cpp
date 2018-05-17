@@ -11,9 +11,9 @@
 using namespace std;
 using namespace cv;
 
-#define STEP 5
+#define STEP 1
 #define JITTER 3
-#define RAIO 3
+#define RAIO 1
 
 int top_slider = 10;
 int top_slider_max = 200;
@@ -78,30 +78,31 @@ int main(int argc, char** argv){
       x = i+rand()%(2*JITTER)-JITTER+1;
       y = j+rand()%(2*JITTER)-JITTER+1;
       gray = image.at<uchar>(x,y);
-      // x = i;
-      // y = j;
-      if(border.at<uchar>(x,y) == 255)
-      {
         circle(points,
              cv::Point(y,x),
-             RAIO/3,
-             CV_RGB(gray,gray,gray),
-             -1,
-             CV_AA);
-      }
-      else
-      {
-        circle(points,
-             cv::Point(y,x),
-              RAIO,
+              RAIO+2,
              CV_RGB(gray,gray,gray),
              -1,
              CV_AA);
       }
     }
-  }
+    for(auto i : xrange){
+      for(auto j : yrange){
+        x = i+rand()%(2*JITTER)-JITTER+1;
+        y = j+rand()%(2*JITTER)-JITTER+1;
+        gray = image.at<uchar>(x,y);
+        if(border.at<uchar>(x,y) == 255)
+        {
+          circle(points,
+              cv::Point(y,x),
+              RAIO,
+              CV_RGB(gray,gray,gray),
+              -1,
+              CV_AA);
+        }
+      }
+    }
 
-
-  imwrite("pontos.jpg", points);
+  imwrite("pontos_nova.jpg", points);
   return 0;
 }

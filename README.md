@@ -966,6 +966,24 @@ Usando esse vídeo como entrada, obtivemos o seguinte vídeo de saída:
 ## Exercícios 7
 
 ## Exercícios 8
+
+####    Utilizando os programas exemplos/canny.cpp e exemplos/pontilhismo.cpp como referência, implementamos um programa nova.cpp. Cuja a idéia é utilizar as bordas produzidas pelo algoritmo de Canny para suavizar as bordas da minha imagem pontilhista gerada. O Programa nova.cpp efetua pontos maiores para toda a região da imagem, após isso utilizamos o resultado do Canny para indentificar as bordas e efetuar pontos de raios menores, deixando assim a imagem com borda mais suave.
+
+A imagem para exemplificar:
+[![exe9](https://raw.githubusercontent.com/mcarujo/mcarujo.github.io/master/exercicios/8/biel.png)](https://github.com/mcarujo/mcarujo.github.io/blob/master/exercicios/8/biel.png)
+
+
+Resultado do algoritmo de Canny(canny.cpp):
+[![exe9](https://raw.githubusercontent.com/mcarujo/mcarujo.github.io/master/exercicios/8/canny.png)](https://github.com/mcarujo/mcarujo.github.io/blob/master/exercicios/8/canny.png)
+
+
+Resultado do pontilhismo.cpp:
+[![exe9](https://raw.githubusercontent.com/mcarujo/mcarujo.github.io/master/exercicios/8/pontos.jpeg)](https://github.com/mcarujo/mcarujo.github.io/blob/master/exercicios/8/pontos.jpeg)
+
+
+Resultado da combinação de Canny com o pontilhismo.cpp (nova.cpp):
+[![exe9](https://raw.githubusercontent.com/mcarujo/mcarujo.github.io/master/exercicios/8/pontos_nova.jpeg)](https://github.com/mcarujo/mcarujo.github.io/blob/master/exercicios/8/pontos_nova.jpeg)
+
 ```c++
 #include <iostream>
 #include <opencv2/opencv.hpp>
@@ -980,9 +998,9 @@ Usando esse vídeo como entrada, obtivemos o seguinte vídeo de saída:
 using namespace std;
 using namespace cv;
 
-#define STEP 5
+#define STEP 1
 #define JITTER 3
-#define RAIO 3
+#define RAIO 1
 
 int top_slider = 10;
 int top_slider_max = 200;
@@ -1047,31 +1065,32 @@ int main(int argc, char** argv){
       x = i+rand()%(2*JITTER)-JITTER+1;
       y = j+rand()%(2*JITTER)-JITTER+1;
       gray = image.at<uchar>(x,y);
-      // x = i;
-      // y = j;
-      if(border.at<uchar>(x,y) == 255)
-      {
         circle(points,
              cv::Point(y,x),
-             RAIO/3,
-             CV_RGB(gray,gray,gray),
-             -1,
-             CV_AA);
-      }
-      else
-      {
-        circle(points,
-             cv::Point(y,x),
-              RAIO,
+              RAIO+2,
              CV_RGB(gray,gray,gray),
              -1,
              CV_AA);
       }
     }
-  }
+    for(auto i : xrange){
+      for(auto j : yrange){
+        x = i+rand()%(2*JITTER)-JITTER+1;
+        y = j+rand()%(2*JITTER)-JITTER+1;
+        gray = image.at<uchar>(x,y);
+        if(border.at<uchar>(x,y) == 255)
+        {
+          circle(points,
+              cv::Point(y,x),
+              RAIO,
+              CV_RGB(gray,gray,gray),
+              -1,
+              CV_AA);
+        }
+      }
+    }
 
-
-  imwrite("pontos.jpg", points);
+  imwrite("pontos_nova.jpg", points);
   return 0;
 }
 ```
