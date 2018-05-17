@@ -970,19 +970,23 @@ Usando esse vídeo como entrada, obtivemos o seguinte vídeo de saída:
 ####    Utilizando os programas exemplos/canny.cpp e exemplos/pontilhismo.cpp como referência, implementamos um programa nova.cpp. Cuja a idéia é utilizar as bordas produzidas pelo algoritmo de Canny para suavizar as bordas da minha imagem pontilhista gerada. O Programa nova.cpp efetua pontos maiores para toda a região da imagem, após isso utilizamos o resultado do Canny para indentificar as bordas e efetuar pontos de raios menores, deixando assim a imagem com borda mais suave.
 
 A imagem para exemplificar:
-[![exe9](https://raw.githubusercontent.com/mcarujo/mcarujo.github.io/master/exercicios/8/biel.png)](https://github.com/mcarujo/mcarujo.github.io/blob/master/exercicios/8/biel.png)
+
+[![exe8](https://raw.githubusercontent.com/mcarujo/mcarujo.github.io/master/exercicios/8/biel.png)](https://github.com/mcarujo/mcarujo.github.io/blob/master/exercicios/8/biel.png)
 
 
 Resultado do algoritmo de Canny(canny.cpp):
-[![exe9](https://raw.githubusercontent.com/mcarujo/mcarujo.github.io/master/exercicios/8/canny.png)](https://github.com/mcarujo/mcarujo.github.io/blob/master/exercicios/8/canny.png)
+
+[![exe8](https://raw.githubusercontent.com/mcarujo/mcarujo.github.io/master/exercicios/8/canny.png)](https://github.com/mcarujo/mcarujo.github.io/blob/master/exercicios/8/canny.png)
 
 
 Resultado do pontilhismo.cpp:
-[![exe9](https://raw.githubusercontent.com/mcarujo/mcarujo.github.io/master/exercicios/8/pontos.jpeg)](https://github.com/mcarujo/mcarujo.github.io/blob/master/exercicios/8/pontos.jpeg)
+
+[![exe8](https://raw.githubusercontent.com/mcarujo/mcarujo.github.io/master/exercicios/8/pontos.png)](https://github.com/mcarujo/mcarujo.github.io/blob/master/exercicios/8/pontos.png)
 
 
 Resultado da combinação de Canny com o pontilhismo.cpp (nova.cpp):
-[![exe9](https://raw.githubusercontent.com/mcarujo/mcarujo.github.io/master/exercicios/8/pontos_nova.jpeg)](https://github.com/mcarujo/mcarujo.github.io/blob/master/exercicios/8/pontos_nova.jpeg)
+
+[![exe8](https://raw.githubusercontent.com/mcarujo/mcarujo.github.io/master/exercicios/8/pontos_nova.png)](https://github.com/mcarujo/mcarujo.github.io/blob/master/exercicios/8/pontos_nova.png)
 
 ```c++
 #include <iostream>
