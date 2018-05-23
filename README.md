@@ -1315,6 +1315,59 @@ int main(int argc, char** argv){
 
 #### Utilizando o programa kmeans.cpp como exemplo prepare um programa exemplo onde a execução do código se dê usando o parâmetro nRodadas=1 e inciar os centros de forma aleatória usando o parâmetro KMEANS_RANDOM_CENTERS ao invés de KMEANS_PP_CENTERS. Realize 10 rodadas diferentes do algoritmo e compare as imagens produzidas. Explique porque elas podem diferir tanto.
 
+Realizando as alterações requisitadas, obtivemos o seguinte código:
+
+```c++
+#include <opencv2/opencv.hpp>
+#include <cstdlib>
+
+using namespace cv;
+
+int main( int argc, char** argv ){
+  int nClusters = 6;
+  Mat rotulos;
+  int nRodadas = 1;
+  Mat centros;
+
+  if(argc!=3){
+	exit(0);
+  }
+
+  Mat img = imread( argv[1], CV_LOAD_IMAGE_COLOR);
+  Mat samples(img.rows * img.cols, 3, CV_32F);
+
+  for( int y = 0; y < img.rows; y++ ){
+    for( int x = 0; x < img.cols; x++ ){
+      for( int z = 0; z < 3; z++){
+        samples.at<float>(y + x*img.rows, z) = img.at<Vec3b>(y,x)[z];
+	  }
+	}
+  }
+
+  kmeans(samples,
+		 nClusters,
+		 rotulos,
+		 TermCriteria(CV_TERMCRIT_ITER|CV_TERMCRIT_EPS, 10000, 0.0001),
+		 nRodadas,
+		 KMEANS_RANDOM_CENTERS,
+		 centros );
+
+
+  Mat rotulada( img.size(), img.type() );
+  for( int y = 0; y < img.rows; y++ ){
+    for( int x = 0; x < img.cols; x++ ){
+	  int indice = rotulos.at<int>(y + x*img.rows,0);
+	  rotulada.at<Vec3b>(y,x)[0] = (uchar) centros.at<float>(indice, 0);
+	  rotulada.at<Vec3b>(y,x)[1] = (uchar) centros.at<float>(indice, 1);
+	  rotulada.at<Vec3b>(y,x)[2] = (uchar) centros.at<float>(indice, 2);
+	}
+  }
+  imshow( "clustered image", rotulada );
+  imwrite(argv[2], rotulada);
+  waitKey( 0 );
+}
+```
+Através da execução de 10 rodadas diferentes do algoritmo foi possível observar que a sua saída apresentou leves alterações, podendo isso ocorrer devido a realização de apenas uma rodada (devido à definição do parâmetro nRodadas = 1), que realiza a execução do algoritmo apenas uma vezes, e o uso do parâmetro KMEANS_RANDOM_CENTERS, que define os centros iniciais aleatoriamente. Com a definição desses dois parâmetros há uma maior chance de se obter saídas diferentes, visto que, sempre deverá haver centros iniciais diferentes e que terão seus cetros ajustados com apenas uma rodada.
 
 
 
