@@ -968,7 +968,7 @@ Usando esse vídeo como entrada, obtivemos o seguinte vídeo de saída:
 
 ####    Utilizando o programa exemplos/dft.cpp como referência, implemente o filtro homomórfico para melhorar imagens com iluminação irregular. Crie uma cena mal iluminada e ajuste os parâmetros do filtro homomórfico para corrigir a iluminação da melhor forma possível. Assuma que a imagem fornecida é em tons de cinza.
 
-O programa se dá aatravés da alteração do filtro utilizado na imagem, sendo agora utilizado um filtro homomórfico que possui como parâmetros ajustáveis os componentes: Gl - iluminância; Gh - reflectância; d - frequência de corte; e c - constante que controla a transição entre Gl e Gh. O switch case da questão foi modificado para permitir o ajuste desses parâmetros. O algoritmo implementado é apresentado abaixo:
+O programa se dá através da alteração do filtro utilizado na imagem, sendo agora utilizado um filtro homomórfico que possui como parâmetros ajustáveis os componentes: Gl - iluminância; Gh - reflectância; d - frequência de corte; e c - constante que controla a transição entre Gl e Gh. O switch case da questão foi modificado para permitir o ajuste desses parâmetros. O algoritmo implementado é apresentado abaixo:
 
 ```c++
 #include <iostream>
@@ -1313,7 +1313,7 @@ int main(int argc, char** argv){
 
 ## Exercícios 9
 
-
+#### Utilizando o programa kmeans.cpp como exemplo prepare um programa exemplo onde a execução do código se dê usando o parâmetro nRodadas=1 e inciar os centros de forma aleatória usando o parâmetro KMEANS_RANDOM_CENTERS ao invés de KMEANS_PP_CENTERS. Realize 10 rodadas diferentes do algoritmo e compare as imagens produzidas. Explique porque elas podem diferir tanto.
 
 
 
